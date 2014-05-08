@@ -24,20 +24,22 @@ namespace SimuverseLib
         private static int instances = 0;
 
         /// <summary>
-        /// # of handle to which the particle is attached.
+        /// List of handles to by which new particle could be attached.
         /// </summary>
-        public List<BasicHandle> Handles = new List<BasicHandle>();
+        public List<BasicHandle> BasicHandles = new List<BasicHandle>();
+
+        /// <summary>
+        /// List of handles by which the partcile is atteched
+        /// to existing, not new, particles.
+        /// They are used by particles to float around.
+        /// </summary>
+        public List<ReverseHandle> ReverseHandles = new List<ReverseHandle>();
 
         /// <summary>
         /// Type of particle (49 elementary particles?).
         /// </summary>
         public FundamentalType Type { get; private set; }
-        
-        ///// <summary>
-        ///// Property used to randomly choose type of particle
-        ///// </summary>
-        //private int typeCount = 49;
-
+       
         /// <summary>
         /// Indicate when particle is able to produce another particle (0 means it's ready).
         /// Starting point is maximal index of every particle.
@@ -61,9 +63,18 @@ namespace SimuverseLib
             fertility = instances;
             Productive = false;
             Type = Types.ListOfTypes[Randomize.Rand(Types.ListOfTypes.Count)];
-            for (int i = 0; i < Type.NumberOfAttachedHandles; i++)
+            AddHandles(Type);
+        }
+
+        private void AddHandles(FundamentalType type)
+        {
+            for (int i = 0; i < type.NumberOfBasicHandles; i++)
             {
-                Handles.Add(new BasicHandle());
+                BasicHandles.Add(new BasicHandle());
+            }
+            for (int i = 0; i < type.NumberOfReverseHandles; i++)
+            {
+                ReverseHandles.Add(new ReverseHandle());
             }
         }
 
@@ -96,7 +107,7 @@ namespace SimuverseLib
         /// </summary>
         public void Dispose()
         {
-            Handles = null;
+            BasicHandles = null;
         }
     }
 }

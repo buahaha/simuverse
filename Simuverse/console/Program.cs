@@ -24,7 +24,7 @@ namespace console
             {
                 Console.WriteLine("\nParticle #{0}", part.IndexNumber);
                 int handlez = 0;
-                foreach (var handle in part.Handles)
+                foreach (var handle in part.BasicHandles)
                 {
 
                     if (handle.Attached != null)
@@ -34,7 +34,7 @@ namespace console
                     }
                 }
                 Console.WriteLine("\nAge {0}, Bound Handles {1}/{2}", 
-                    part.Age, handlez, part.Type.NumberOfAttachedHandles);
+                    part.Age, handlez, part.Type.NumberOfBasicHandles);
                 Console.WriteLine();
             }
             Console.ReadLine();

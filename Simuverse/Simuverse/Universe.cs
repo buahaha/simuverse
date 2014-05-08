@@ -66,13 +66,19 @@ namespace SimuverseLib
             foreach (var particle in temp)
             {
                 int randIndex = Randomize.Rand(Particles.Count);
-                foreach (var handle in Particles[randIndex].Handles)
+                foreach (var handle in Particles[randIndex].BasicHandles)
                 {
                     if (handle.CanAccept())
                     {
                         handle.AcceptNew(particle);
                         Particles.Add(particle);
-                        return;
+                        //Randomly attach new particle's ReverseHandle to old particle
+                        //to which the new particle is attached
+                        Particles[randIndex].ReverseHandles[
+                            Randomize.Rand(
+                            Particles[randIndex].ReverseHandles.Count - 1)].
+                            AcceptNew(handle.Owner);
+                        break;
                     }
                 }
             }

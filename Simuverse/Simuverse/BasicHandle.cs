@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace SimuverseLib
 {
+    /// <summary>
+    /// This handle stays forever the same as it is created,
+    /// it's main purpose is to indicate which newer particles
+    /// were attached to older particle.
+    /// </summary>
     public class BasicHandle
     {
         public Particle Owner { get; set; }

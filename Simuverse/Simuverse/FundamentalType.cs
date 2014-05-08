@@ -8,7 +8,8 @@ namespace SimuverseLib
 {
     public class FundamentalType
     {
-        public int NumberOfAttachedHandles { get; set; }
+        public int NumberOfBasicHandles { get; set; }
+        public int NumberOfReverseHandles { get; set; }
 
         /// <summary>
         /// Number of maximum possible attached handles to any fundamental type
@@ -18,7 +19,9 @@ namespace SimuverseLib
         public FundamentalType()
         {
             //randomly set number of attached handles
-            NumberOfAttachedHandles = Randomize.Rand(maxHandles + 1);
+            NumberOfBasicHandles = Randomize.Rand(maxHandles + 1);
+            NumberOfReverseHandles = Randomize.Rand(maxHandles + 1);
+            if (NumberOfReverseHandles == 0) NumberOfReverseHandles = 1;
         }
     }
 }
